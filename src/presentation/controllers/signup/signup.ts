@@ -27,7 +27,12 @@ export class SignUpController implements Controller {
       const isValid = this.emailValidator.isValid(email)
       if (!isValid) return badRequest(new InvalidParamError('email'))
 
-      this.addAccount.add({ email, name, password })
+      const newAccount = this.addAccount.add({ email, name, password })
+
+      return {
+        statusCode: 200,
+        body: newAccount
+      }
     } catch (err) {
       return serverError()
     }
